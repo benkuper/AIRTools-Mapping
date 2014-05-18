@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/3.7">
+	
+	<id>PerspectiveDistortion</id> 
+	<versionNumber>1.0</versionNumber> 
+	<filename>PerspectiveDistortion</filename> 
+	
+	<name>PerspectiveDistortion</name> 
+	<description></description> 
+	<copyright></copyright> 
+	
+	<initialWindow> 
+		<title>PerspectiveDistortion</title> 
+		<content>PerspectiveDistortion.swf</content> 
+		<systemChrome>none</systemChrome> 
+		<transparent>false</transparent> 
+		<visible>true</visible> 
+		<minimizable>true</minimizable> 
+		<maximizable>true</maximizable> 
+		<resizable>true</resizable> 
+		<width>1500</width>
+		<height>800</height>
+		
+		<!--<renderMode>gpu</renderMode>-->
+	</initialWindow> 
+	
+	<!--<supportedProfiles>extendedDesktop</supportedProfiles>-->
+	<!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+</application>

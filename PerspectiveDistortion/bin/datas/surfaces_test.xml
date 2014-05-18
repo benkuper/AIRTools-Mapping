@@ -1,0 +1,10 @@
+<data>
+  <surfaces>
+    <surface id="spriteTest">
+      <point x="435" y="221"/>
+      <point x="1255" y="70"/>
+      <point x="492" y="582"/>
+      <point x="1315" y="605"/>
+    </surface>
+  </surfaces>
+</data>

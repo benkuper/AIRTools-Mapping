@@ -1,0 +1,28 @@
+<data>
+  <surfaces>
+    <surface id="bar">
+      <point x="-65.15" y="436"/>
+      <point x="810.85" y="269.7"/>
+      <point x="-50.85" y="576.55"/>
+      <point x="808.55" y="560"/>
+    </surface>
+    <surface id="facade">
+      <point x="-153.7" y="395.45"/>
+      <point x="822.3" y="144"/>
+      <point x="-9.7" y="424.55"/>
+      <point x="810.85" y="268.55"/>
+    </surface>
+    <surface id="montant">
+      <point x="29.7" y="420"/>
+      <point x="58.85" y="414.3"/>
+      <point x="178.85" y="448.55"/>
+      <point x="204" y="445.15"/>
+    </surface>
+    <surface id="montant2">
+      <point x="29.7" y="420"/>
+      <point x="58.85" y="414.3"/>
+      <point x="178.85" y="448.55"/>
+      <point x="204" y="445.15"/>
+    </surface>
+  </surfaces>
+</data>
