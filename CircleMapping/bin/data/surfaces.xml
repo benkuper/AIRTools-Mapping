@@ -1,0 +1,10 @@
+<data>
+  <surfaces>
+    <surface id="calib">
+      <point x="467.05" y="365.6"/>
+      <point x="348.15" y="362.85"/>
+      <point x="444.75" y="245.65"/>
+      <point x="348.55" y="249.7"/>
+    </surface>
+  </surfaces>
+</data>

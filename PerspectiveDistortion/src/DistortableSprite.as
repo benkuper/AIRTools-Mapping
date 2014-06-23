@@ -72,8 +72,12 @@ package
 		
 		private var _useGPU:Boolean;
 		
+		
+		public var enabled:Boolean;
+		
 		//TEMP !!!!!!!!!
 		private var diagSprite:Sprite;
+		
 		
 		public function DistortableSprite(id:String) 
 		{
@@ -115,11 +119,14 @@ package
 			
 			diagSprite = new Sprite();
 			addChild(diagSprite);
+			
+			enabled = true;
 		}
 		
 		private function computeDistortion(e:Event = null):Boolean
 		{
 			
+			if (!enabled) return false;
 			//trace("Compute Distortion, bitmapdata");
 			if (autoUpdateBitmap)
 			{
