@@ -13,14 +13,14 @@ package
 	 * ...
 	 * @author Ben Kuper
 	 */
-	public class Main extends Sprite
+	public class TriangleMapping extends Sprite
 	{
 		
 		private var center:Handle;
 		private var rPoints:Vector.<Handle>; //4 radius point clockwise, each 90°
 		private var squarePoints:Vector.<Point>;
 		
-		[Embed(source="calib.jpg")]
+		[Embed(source="calibTriangle.jpg")]
 		public static var CALIB_BM:Class;
 		private var calibBM:Bitmap;
 		private var calibD:DistortableSprite;
@@ -36,8 +36,10 @@ package
 		private var _extendFactor:Number;
 		
 		
-		public function Main():void
+		public function TriangleMapping():void
 		{
+			Fonts.init();
+			
 			StageUtil.init(stage);
 			StageUtil.setNoScale();
 			
@@ -70,7 +72,7 @@ package
 			//Lucie je t'aime
 			
 			
-			center = new Handle();
+			center = new Handle("C");
 			center.x = stage.stageWidth / 2;
 			center.y = stage.stageHeight / 2;
 			addChild(center);
@@ -78,12 +80,12 @@ package
 			rPoints = new Vector.<Handle>();
 			squarePoints = new Vector.<Point>();
 			
-			for (var i:int = 0; i < 4; i++)
+			for (var i:int = 0; i < 3; i++)
 			{
-				rPoints.push(new Handle());
-				var angle:Number =(-(i / 4) * Math.PI * 2 * 3)+Math.PI;
-				rPoints[i].x = center.x + Math.cos(angle) * 50 + (Math.random() - .5) * 10;
-				rPoints[i].y = center.y + Math.sin(angle) * 50 + (Math.random() - .5) * 10;
+				rPoints.push(new Handle(i.toString()));
+				var angle:Number =  -(i / 3) * Math.PI *2;
+				rPoints[i].x = center.x + Math.cos(angle) * 50
+				rPoints[i].y = center.y + Math.sin(angle) * 50;
 				addChild(rPoints[i]);
 				
 				squarePoints.push(new Point());
@@ -93,10 +95,9 @@ package
 			addEventListener(HandleEvent.DRAG_FINISH, handleDragFinish);
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 			
-			ajdustHandleFromSource(rPoints[0]);
-			ajdustHandleFromSource(rPoints[1]);
+			//ajdustHandleFromSource(rPoints[0]);
+			//ajdustHandleFromSource(rPoints[1]);
 			
-			Fonts.init();
 			var tf:TextField = Fonts.createTF("Key shortcuts :\nE : toggle extended surface\n+ / - : change extend factor",Fonts.normalTF);
 			addChild(tf);
 			tf.x = 10;
@@ -105,58 +106,65 @@ package
 		
 		private function handleDragFinish(e:HandleEvent):void
 		{
-			graphics.clear();
-			for each (var h:Handle in rPoints)
-				h.slave = false;
+			//graphics.clear();
+			//for each (var h:Handle in rPoints)
+				//h.slave = false;
 		}
 		
 		private function handleDragging(e:HandleEvent):void
 		{
 			
 			//trace("dragging !");			
-			this.ajdustHandleFromSource(e.target as Handle);
-			//if (sourceHandle == center) return;
-		
-			//var targetHandle:Handle = 
+			//this.ajdustHandleFromSource(e.target as Handle);
+
 		}
 		
-		private function ajdustHandleFromSource(source:Handle):void
-		{
-			if (source == center)
-			{
-				ajdustHandleFromSource(rPoints[0]);
-				ajdustHandleFromSource(rPoints[1]);
-				return;
-			}
-			;
-			
-			var target:Handle = getTargetHandleFromSource(source);
-			
-			var sAngle:Number = Math.atan2(source.y - center.y, source.x - center.x);
-			var invAngle:Number = sAngle + Math.PI;
-			var dDist:Number = Point.distance(new Point(target.x, target.y), new Point(center.x, center.y));
-			
-			target.x = center.x + Math.cos(invAngle) * dDist;
-			target.y = center.y + Math.sin(invAngle) * dDist;
+		//private function ajdustHandleFromSource(source:Handle):void
+		//{
+			//if (source == center)
+			//{
+				//ajdustHandleFromSource(rPoints[0]);
+				//ajdustHandleFromSource(rPoints[1]);
+				//return;
+			//}
+			//;
+			//
+			//var target:Handle = getTargetHandleFromSource(source);
+			//
+			//var sAngle:Number = Math.atan2(source.y - center.y, source.x - center.x);
+			//var invAngle:Number = sAngle + Math.PI;
+			//var dDist:Number = Point.distance(new Point(target.x, target.y), new Point(center.x, center.y));
+			//
+			//target.x = center.x + Math.cos(invAngle) * dDist;
+			//target.y = center.y + Math.sin(invAngle) * dDist;
+		//
+		//}
 		
-		}
-		
-		private function getTargetHandleFromSource(sourceHandle:Handle):Handle
-		{
-			return rPoints[(rPoints.indexOf(sourceHandle) + 2) % rPoints.length];
-		}
+		//private function getTargetHandleFromSource(sourceHandle:Handle):Handle
+		//{
+			//return rPoints[(rPoints.indexOf(sourceHandle) + 2) % rPoints.length];
+		//}
+		//
 		
 		private function enterFrame(e:Event):void
 		{
-			if (rPoints[0].x == rPoints[2].x || rPoints[0].y == rPoints[2].y)
-				return;
-			if (rPoints[1].x == rPoints[3].x || rPoints[1].y == rPoints[3].y)
-				return;
+			//if (rPoints[0].x == rPoints[2].x || rPoints[0].y == rPoints[2].y)
+				//return;
+			//if (rPoints[1].x == rPoints[3].x || rPoints[1].y == rPoints[3].y)
+				//return;
 			
 			graphics.clear();
 			
-			var h1:Point = getHorizon(rPoints[0], rPoints[2]);
-			var h2:Point = getHorizon(rPoints[1], rPoints[3]);
+			graphics.lineStyle(1, 0x555555);
+			graphics.moveTo(rPoints[0].x, rPoints[0].y);
+			graphics.lineTo(rPoints[1].x, rPoints[1].y);
+			graphics.lineTo(rPoints[2].x, rPoints[2].y);
+			graphics.lineTo(rPoints[0].x, rPoints[0].y);
+			
+			var midBase:Point = findIntersection(rPoints[1].point, center.point, rPoints[0].point, rPoints[2].point);
+			
+			var h1:Point = getHorizon(rPoints[0].point, rPoints[2].point,midBase);
+			var h2:Point = getHorizon(rPoints[1].point, midBase,center.point);
 			
 			if (h1 == null || h2 == null)
 				return;
@@ -166,11 +174,11 @@ package
 			extendSurface(h1,h2,extendFactor); //factor, arbitraty;
 		}
 		
-		private function getHorizon(p1:Handle, p2:Handle):Point
+		private function getHorizon(p1:Point, p2:Point, cp:Point):Point
 		{
-			var p1p:Point = new Point(p1.x, p1.y);
-			var p2p:Point = new Point(p2.x, p2.y);
-			var cp:Point = new Point(center.x, center.y);
+			//var p1p:Point = p1.point;
+			//var p2p:Point = p2.point;
+			//var cp:Point = middle;
 			
 			
 			graphics.lineStyle(1, 0x888888);
@@ -178,19 +186,22 @@ package
 			graphics.lineTo(p2.x, p2.y);
 			
 			var up1:Point = new Point(p1.x, p1.y - elevation);
-			//graphics.moveTo(p1.x, p1.y);
-			//graphics.lineTo(up1.x, up1.y);
-			//
-			//graphics.moveTo(up1.x, up1.y);
-			//graphics.lineTo(p2.x, p2.y);
+			graphics.moveTo(p1.x, p1.y);
+			graphics.lineTo(up1.x, up1.y);
 			
-			var centerUp:Point = new Point(center.x, center.y - elevation);
-			var centerMid:Point = findIntersection(up1, p2p, cp, centerUp);
-			//graphics.moveTo(center.x, center.y);
-			//graphics.lineTo(centerMid.x, centerMid.y);
+			graphics.moveTo(up1.x, up1.y);
+			graphics.lineTo(p2.x, p2.y);
+			
+			var centerUp:Point = new Point(cp.x, cp.y - elevation);
+			var centerMid:Point = findIntersection(up1, p2, cp, centerUp);
+			
+			if (centerMid == null) return null;
+			
+			graphics.moveTo(cp.x, cp.y);
+			graphics.lineTo(centerMid.x, centerMid.y);
 			
 			var up1Mid:Point = new Point(p1.x, p1.y - elevation / 2);
-			var horizon:Point = findIntersection(up1Mid, centerMid, p1p, p2p);
+			var horizon:Point = findIntersection(up1Mid, centerMid, p1, p2);
 			
 			if (horizon == null)
 				return null;
@@ -202,27 +213,32 @@ package
 			//graphics.moveTo(p1.x, p1.y);
 			//graphics.lineTo(horizon.x, horizon.y);
 			
+			//graphics.beginFill(0x55AA33);
+			//graphics.drawCircle(horizon.x, horizon.y,10);
+			//graphics.endFill();
+			
 			return horizon;
 		}
 		
+		
 		private function computeSquarePoints(h1:Point, h2:Point):void
 		{
-			var p1p:Point = new Point(rPoints[0].x, rPoints[0].y);
-			var p2p:Point = new Point(rPoints[1].x, rPoints[1].y);
-			var p3p:Point = new Point(rPoints[2].x, rPoints[2].y);
-			var p4p:Point = new Point(rPoints[3].x, rPoints[3].y);
+			var p1p:Point = rPoints[0].point;
+			var p2p:Point = rPoints[1].point;
+			var p3p:Point = rPoints[2].point;
+			var cp:Point = center.point;
 			
 			var i1:Point = findIntersection(h1, p2p, h2, p1p);
 			var i2:Point = findIntersection(h1, p2p, h2, p3p);
-			var i3:Point = findIntersection(h1, p4p, h2, p1p);
-			var i4:Point = findIntersection(h1, p4p, h2, p3p);
+			var i3:Point = p1p;
+			var i4:Point = p3p;
 			
-			graphics.lineStyle(1, 0xaaaaaa);
-			graphics.moveTo(i1.x, i1.y);
-			graphics.lineTo(i2.x, i2.y);
-			graphics.lineTo(i4.x, i4.y);
-			graphics.lineTo(i3.x, i3.y);
-			graphics.lineTo(i1.x, i1.y);
+			//graphics.lineStyle(1, 0xaaaaaa);
+			//graphics.moveTo(i1.x, i1.y);
+			//graphics.lineTo(i2.x, i2.y);
+			//graphics.lineTo(i4.x, i4.y);
+			//graphics.lineTo(i3.x, i3.y);
+			//graphics.lineTo(i1.x, i1.y);
 			
 			calibD.handlerTL.x = i1.x;
 			calibD.handlerTL.y = i1.y;
@@ -273,7 +289,7 @@ package
 			//graphics.drawCircle(ext3.x, ext3.y, 5);
 			//graphics.drawCircle(ext4.x, ext4.y, 5);
 			//graphics.endFill();
-			
+			//
 			uvD.handlerTL.x = ext4.x;
 			uvD.handlerTL.y = ext4.y;
 			uvD.handlerTR.x = ext3.x;

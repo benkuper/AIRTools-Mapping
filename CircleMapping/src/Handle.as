@@ -4,6 +4,9 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.text.TextField;
+	import fonts.Fonts;
 	
 	/**
 	 * ...
@@ -15,8 +18,12 @@ package
 		private var _selected:Boolean;
 		private var _slave:Boolean;
 		
-		public function Handle() 
+		public function Handle(label:String) 
 		{
+			var tf:TextField = Fonts.createTF(label, Fonts.normalTF);
+			addChild(tf);
+			tf.x = 5;
+			tf.y = 5;
 			
 			draw();
 			addEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
@@ -77,6 +84,11 @@ package
 		{
 			_slave = value;
 			draw();
+		}
+		
+		public function get point():Point
+		{
+			return new Point(x, y);
 		}
 		
 	}
